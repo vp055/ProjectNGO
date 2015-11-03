@@ -1,89 +1,81 @@
 <?php
-session_start();
+   include("connect.php");
+   session_start();
+   
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST")
+   {
+      // username and password sent from form 
+      
+      $username=mysqli_real_escape_string($conn,$_POST['username']);
+      $password=mysqli_real_escape_string($conn,$_POST['password']); 
+      
+      $sql="SELECT userid FROM users WHERE username='$username' and password='$password'";
+      $result=mysqli_query($conn,$sql);
+      $row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+      $active=$row['active'];
+      
+      $count=mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+		
+      if($count==1)
+      {
+         $_SESSION['login_user']=$username;
+         
+         header("location: admin.php");
+      }
+      else 
+      {
+         $error="Your Login Name or Password is invalid";
+      }
+   }
 ?>
 <html>
-<head>
-	<link rel = "stylesheet" type = "text/css" href = "/ProjectNGO/admin_side/css/login.css">
+   
+   <head>
+      <title>Login Page</title>
+      
+      <style type="text/css">
+         body {
+            font-family:Arial, Helvetica, sans-serif;
+            font-size:14px;
+         }
+         
+         label {
+            font-weight:bold;
+            width:100px;
+            font-size:14px;
+         }
+         
+         .box {
+            border:#666666 solid 1px;
+         }
+      </style>
+      
+   </head>
+   
+   <body bgcolor="#FFFFFF">
 	
-</head>
-<body>
+      <div align="center">
+         <div style="width:300px; border: solid 1px #333333; " align="left">
+            <div style="background-color:#333333; color:#FFFFFF; padding:3px;"><b>Login</b></div>
+				
+            <div style="margin:30px">
+               
+               <form action="" method="post">
+                  <label>UserName  :</label><input type="text" name="username" class="box"/><br /><br />
+                  <label>Password  :</label><input type="password" name="password" class="box" /><br/><br />
+                  <input type="submit" value=" Submit "/><br />
+               </form>
+               
+<!--                <div style="font-size:11px; color:#cc0000; margin-top:10px"></div> -->
+					
+            </div>
+				
+         </div>
+			
+      </div>
 
-<div id = "wrapper">
-<div id = "logindetails">
- 
-<img src = "/ProjectNGO/admin_side/img/login.png" id = "login" height = "150px" width = "100px">
-			<br><br>
-		
-		
-		<form method="POST" action="<?php $_PHP_SELF ?>">
-    		<input type="text"   placeholder = "*Username" class = "inputsmall" required/><br><br>
-		    <input type="password"  placeholder = "*Password" class = "inputsmall"  required/> <br> <br>
-		    <input  type="submit" name="submit" id="submit" value="Login" class = "inputsmall" /><br><br><br>
-		  <center> <span id = "lst"> <a href="signup.php">New User?Sign Up</span></a> </center>
-		  </form>
-		
-	</div>
-</div>
-
-</body>
+   </body>
 </html>
-<?php
-
-if(isset($_POST['submit']))   
-{
-	$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = 'root123';
-	//$var1="admin123";
-	//$var2 = "admin";
-	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
-	if(! $conn )
-	{
-  		die('Could not connect: ' . mysql_error());
-	}
-	else
-	{
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	mysql_select_db('NGOdb');
-      	$query = mysql_query("SELECT username,password FROM users WHERE username = '$username' AND password = '$password'");
-	
-	$retval = mysql_fetch_array($query);
-	
-		if($retval['username'] == $username  && $retval['password'] == $password)
-		{
-		
-		
-		?>
-			<script>alert("You are successully loggedIn");</script>
-		 
-	<?php
-		//echo '<script type="text/javascript"> window.open("admin.php","_self");</script>';
-/*if (strcmp($var1,$password) == 0 && strcmp($var2,$username) ==0)
-{
-echo '<script type="text/javascript"> window.open("admin.php","_self");</script>';
-}*/
-			if($username=='admin' && $password=='admin123')
-			{
-				echo '<script type="text/javascript"> window.open("admin.php","_self");</script>';
-			}
-			else if($username=="root" && $password=="root123")
-			{
-				echo '<script type="text/javascript"> window.open("registerNGO.php","_self");</script>';
-			}
-		
-		}
-	
-		else
-		{
-		?>
-			<script>alert("Sorry, your credentials do not match");</script>
-			<?php
-		}
-	}
-	
-}
-mysql_close($conn);
-
-?>
-
