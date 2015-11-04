@@ -15,40 +15,39 @@
    
    if($_SERVER["REQUEST_METHOD"] == "POST")
    {
+
    		$name = $_POST['name']; 
-		$address= $_POST['address']; 
+		$locality= $_POST['locality']; 
+		$city= $_POST['city']; 
+		$state= $_POST['state']; 
+		$pin_code= $_POST['pin_code']; 
+		$ph_number=$_POST['ph_number'];
 		$website = $_POST['website'];
-		$contactno=$_POST['contactno'];
+		$ngo_logo= $_POST['ngo_logo']; 
+		$ngo_id= $_POST['ngo_id']; 
+
 		mysqli_select_db($conn,'project_ngo');
-		$query = "INSERT INTO ngos(name,website,contactno,address) VALUES ('$name','$website','$contactno','$address')"; 	
+
+		$query = "INSERT INTO ngo_detail(name,locality,city,state,pin_code,ph_number,website,ngo_logo,ngo_id) VALUES ('$name','$locality','$city','$state','$pin_code','$ph_number','$website','$ngo_logo','$ngo_id')"; 	
 
 
 $result = mysqli_query($conn,$query);
 
 
 
-     if ($result) {?>
-<script>alert("NGO inserted successfully");</script>
+     if ($result) 
+     {?>
+		<script>alert("NGO inserted successfully");</script>
 <?php
-echo '<script type="text/javascript"> window.open("admin.php","_self");</script>'; 
-} else {
+		echo '<script type="text/javascript"> window.open("admin.php","_self");</script>'; 
+     } 
+    else 
+   {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
+   }
 
 mysqli_close($conn);
-/*if(! $retval )
-{
-  die('Could not enter data: ' . mysql_error());
-}
-else
-{?>
-<script>alert("NGO inserted successfully");</script>
-	
-<?php
-echo '<script type="text/javascript"> window.open("admin.php","_self");</script>'; 
 
-}
-//mysql_close($conn);*/
 }
 ?>
 
@@ -58,37 +57,44 @@ echo '<script type="text/javascript"> window.open("admin.php","_self");</script>
 	<table id = "table6">
 	<tr>
 		<td>NAME:</td>
-		<td><input type="text"  placeholder = "*Enter name of the NGO"  id = "name" name = "name" onblur = "validatename()" required/></td> 	
+		<td><input type="text"  placeholder = "*Enter name of the NGO"  id = "name" name = "name"  required/></td> 	
 
 	</tr>
+	
 	<tr>
-		<td></td>
-		<td><span id = "nameerror" class = "error" ></span></td>
+		<td>LOCALITY:</td>
+		<td><input  type="text"  placeholder = "*Enter locality" id="locality" name = "locality" required/></td>
 	</tr>
 	<tr>
-		<td>ADDRESS:</td>
-		<td><input  type="text"  placeholder = "*Enter address" id="lname" name = "address" onblur = "validatelname()" required/></td>
+		<td>CITY:</td>
+		<td><input  type="text"  placeholder = "*Enter city" id="city" name = "city" required/></td>
 	</tr>
 	<tr>
-		<td></td>
-		<td><span id = "lastnameerror" class = "error"  ></span></td>
+		<td>STATE:</td>
+		<td><input  type="text"  placeholder = "*Enter state" id="state" name = "state" required/></td>
 	</tr>
 	<tr>
-		<td>WEBSITE:</td>
-		<td><input type="text" class = "inputbig"  placeholder = "Enter website (if any)" name = "website" onblur = "validateemail()" /></td><br>
-	</tr>
-	<tr>
-		<td></td>
-		<td><span id = "emailerror" class = "error"></span></td><tr>
-	</tr>
-	<tr>
-		<td>CONTACT NUMBER:</td>
-		<td><input type="tel" class = "inputbig"   placeholder = "*Enter contact number" name = "contactno" id="phone1" onblur = "validatephone()" required/></td>
-	</tr> 
-	<tr>
-			<td><span id = "phoneerror" class = "error"></span></td><tr>
+		<td>PINCODE:</td>
+		<td><input  type="text"  placeholder = "*Enter pincode" id="pincode" name = "pincode" required/></td>
 	</tr>
 	
+	<tr>
+		<td>WEBSITE:</td>
+		<td><input type="text"   placeholder = "Enter website (if any)" name = "website"  /></td><br>
+	</tr>
+	
+	<tr>
+		<td>PHONE NUMBER:</td>
+		<td><input type="text"    placeholder = "*Enter phone number" name = "phone" id="phone" required/></td>
+	</tr> 
+	<tr>
+		<td>NGO LOGO:</td>
+		<td><input type="file" /></td>
+	</tr> 
+	<tr>
+		<td>NGO ID:</td>
+		<td><input type="text"    placeholder = "*Enter unique ngo id" name = "ngo_id" id="ngo_id" required/></td>
+	</tr> 
 	<tr>
 		<td></td>
 		<td> </td>
@@ -99,7 +105,7 @@ echo '<script type="text/javascript"> window.open("admin.php","_self");</script>
 	
 	
 	
-	<center><input type = "submit" value = "Register" id = "submit" name="submit"></center>
+	<br><br><center><input type = "submit" value = "Register" id = "submit" name="submit"></center>
 		</form>
 	</center>
 	
@@ -110,5 +116,4 @@ echo '<script type="text/javascript"> window.open("admin.php","_self");</script>
 
 </body>
 </html>
-
 
