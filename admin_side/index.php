@@ -1,5 +1,5 @@
 <?php
-   include("/Applications/XAMPP/xamppfiles/htdocs/projectngo/php/connect.php");
+   include("connect.php");
    session_start();
    
    
@@ -23,7 +23,7 @@
       {
          $_SESSION['login_user']=$username;
          
-         header("location: /Applications/XAMPP/xamppfiles/htdocs/projectngo/php/admin.php");
+         header("location: admin.php");
       }
       else 
       {
