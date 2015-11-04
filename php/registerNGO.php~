@@ -54,6 +54,9 @@ echo '<script type="text/javascript"> window.open("admin.php","_self");</script>
 
 <center>
 	<h1> NGO DETAILS </h1>
+
+	
+	
 	<form method="post" action="<?php $_PHP_SELF ?>" >
 	<table id = "table6">
 	<tr>
