@@ -6,7 +6,7 @@
 		<link rel = "stylesheet" type = "text/css" href = "newuserform1.css">
 
 </head>
-<body background="bg.jpg" style="no-repeat">
+<body >
 
 	<div id = "header">
 		<div id = "link"> 
@@ -24,12 +24,13 @@
 	<div id = "mid1">
 	<span id = "heading">REGISTERED NGOs<br><br>
 	</span>
-		<?php
-
-$dbhost = 'localhost';
-$dbuser = 'root';
-$dbpass = 'root123';
-$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+<?php
+ include("connect.php");
+   session_start();
+   
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST")
+   {
 if(! $conn )
 {
   die('Could not connect: ' . mysql_error());
@@ -37,7 +38,7 @@ if(! $conn )
    		
 		$query = "SELECT * FROM ngos"; 	
 
-mysql_select_db('NGOdb');
+mysql_select_db('project_ngo');
 
 $retval = mysql_query( $query, $conn );
 if(! $retval )
