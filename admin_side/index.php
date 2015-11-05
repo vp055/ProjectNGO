@@ -18,17 +18,23 @@
       $count=mysqli_num_rows($result);
       
       // If result matched $myusername and $mypassword, table row must be 1 row
-		
-      if($count==1)
-      {
-         $_SESSION['login_user']=$username;
+
+       if($count == 2){
+           $_SESSION['login_user']=$username;
+           
+           header("location: root.php");
+       
+       }
+       elseif($count==1)
+       {
+           $_SESSION['login_user']=$username;
          
-         header("location: admin.php");
-      }
-      else 
-      {
-         $error="Your Login Name or Password is invalid";
-      }
+           header("location: admin.php");
+       }
+       else 
+       {
+           echo"<script>alert('Your Login Name or Password is invalid')</script>";
+       }
    }
 ?>
 <html>
