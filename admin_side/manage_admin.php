@@ -141,7 +141,7 @@ mysqli_close($conn);
                         <span class="input-group-addon"><span class="glyphicon glyphicon-briefcase"></span></span>
                     </div>
                 </div>
-                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info btn-lg">
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info btn-lg btn-block">
             </div>
         </form>
         </div>
