@@ -48,33 +48,41 @@ include('session.php');
 
 	
 			
-        REGISTERED NGOs<br><br>
-	
-<?php
- 
-   
-if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    //  mysqli_select_db($conn,'project_ngo');
+        <div id="nl_pan" class="panel panel-primary">
+            <div class="panel-heading"><center>NGO List</center></div>
+				<?php 
+						$query="SELECT name,ngo_id,ph_number,ngo_type FROM ngo_detail";
 
-    $query = "SELECT name FROM ngo_detail"; 	
+						if(!$data = mysqli_query($conn,$query))
+						{
+							echo " <br /><span class='error'> unable to find tables data </span> <br />";
+							echo mysqli_error($conn);
+						}
+						else
+						{
+							$counter = 0;
 
-    
-    $retval = mysqli_query($conn,$query);
-/*if(! $retval )
-{
-  die('Could not enter data: ' . mysqli_error($conn));
-}*/
-    while ($db_field = mysqli_fetch_assoc($retval))
-    {
-
-        echo $db_field['name'] . "<BR>";
-
-    }
-}
+							echo " <table class='table'>";
+							while($row = mysqli_fetch_array($data))
+							{
+								$counter++;
+								echo "<tr>
+										<td> 
+                                            <a href=''>{$row['name']}</a>
+                                            {$row['ngo_id']}
+                                            {$row['ph_number']}
+                                            {$row['ngo_type']}	
+                                            
+										</td>
+									</tr>";
+								
+							}
+							echo "</table>";
+						}
 mysqli_close($conn);
-
-?>
+				?>			
+			</div>
 
 	
 
