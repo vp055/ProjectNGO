@@ -89,7 +89,7 @@ mysqli_close($conn);
 	</tr> 
 	<tr>
 		<td>NGO LOGO:</td>
-		<td><input type="file" name=ngo_logo/></td>
+		<td><input type="file" /></td>
 	</tr> 
 	<tr>
 		<td>NGO ID:</td>
