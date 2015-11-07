@@ -1,10 +1,11 @@
 <?php
-    include('session.php');
-    /*if($login_session == 'Tanuj'){
-        }
-    else{				/*had to comment this as after clicking on root portal it was still showing admin roles*/
-       // header("location: admin.php");
-//}
+include('session.php');
+if($login_session == 'Tanuj'){
+    }
+else{
+    
+    header("location: admin.php");
+    }
 
 ?>
 <html>
